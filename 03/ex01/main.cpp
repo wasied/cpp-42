@@ -5,7 +5,9 @@ int main(void)
 {
     ClapTrap    a("Jhon Smith");
     ClapTrap    b("Rawid Jeremy");
-    ScavTrap   c("Makouli Moukoukou");
+    ScavTrap    c("Makouli Moukoukou");
+
+    b = c;
 
     std::cout << std::endl;
 
