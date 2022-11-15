@@ -10,7 +10,7 @@ class WrongCat : public WrongAnimal
     public:
         WrongCat(void);
         WrongCat(WrongCat const & src);
-        ~WrongCat();
+        virtual ~WrongCat();
 
         WrongCat & operator=(WrongCat const & rhs);
 
