@@ -2,7 +2,6 @@
 
 Cast::Cast(const std::string & value) : _value(value)
 {
-
 }
 
 Cast::Cast(Cast const & src)
@@ -12,7 +11,6 @@ Cast::Cast(Cast const & src)
 
 Cast::~Cast()
 {
-
 }
 
 Cast & Cast::operator=(Cast const & rhs)
