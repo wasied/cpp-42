@@ -24,7 +24,7 @@ class Form
         void                beSigned(Bureaucrat const & bureaucrat);
 
     private:
-        std::string             _name;
+        const std::string       _name;
         bool                    _signed;
         const unsigned int      _minGradeToSign;
         const unsigned int      _minGradeToExecute;

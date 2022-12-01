@@ -25,7 +25,7 @@ AForm::~AForm()
 
 AForm &    AForm::operator=(AForm const & rhs)
 {
-    this->_name = rhs.getName();
+    std::cout << "Since name is const, can't overwrite it" << std::endl;
     this->_signed = rhs.getSigned();
     return *this;
 }
