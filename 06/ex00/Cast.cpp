@@ -29,7 +29,7 @@ char Cast::toChar() const
 
     try
     {
-        n = std::stoi(this->_value);
+        n = this->toInt();
         if (n < 0 || n > 255)
             throw Cast::ImpossibleCastException();
     }
@@ -44,11 +44,17 @@ char Cast::toChar() const
 
 int Cast::toInt() const
 {
-    int n;
+    int 	n;
+	double	d;
+	double	inf;
 
     try
     {
-        n = std::stoi(this->_value);
+		d = this->toDouble();
+		n = static_cast<int>(d);
+		inf = std::numeric_limits<double>::infinity();
+		if (d == inf || d == -inf || std::isnan(d))
+			throw std::exception();
     }
     catch (std::exception & e)
     {
@@ -59,17 +65,19 @@ int Cast::toInt() const
 
 float Cast::toFloat() const
 {
-    float n;
+    float 	f;
+	double	d;
 
     try
     {
-        n = std::stof(this->_value);
+		d = this->toDouble();
+		f = static_cast<float>(d);
     }
     catch (std::exception & e)
     {
         throw Cast::ImpossibleCastException();
     }
-    return n;
+    return f;
 }
 
 double Cast::toDouble() const
