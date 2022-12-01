@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:23:35 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/11/15 14:23:36 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:29:00 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,4 @@ AAnimal::~AAnimal()
 std::string AAnimal::getType(void) const
 {
     return (this->_type);
-}
-
-void AAnimal::makeSound(void) const
-{
-    std::cout << "* Son d'animal inconnu * " << std::endl;
 }

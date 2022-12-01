@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:23:22 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/11/15 14:23:23 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:37:51 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,25 @@ Brain::~Brain()
 
 std::string Brain::getIdea(int i) const
 {
+	if (i < 0 || i > 99)
+		return NULL;
     return (this->_ideas[i]);
 }
 
 void Brain::setIdea(int i, std::string idea)
 {
+	if (i < 0 || i > 99)
+		return;
     this->_ideas[i] = idea;
+}
+
+std::ostream & operator<<(std::ostream & o, Brain const & rhs)
+{
+    o << "Brain ideas:" << std::endl;
+    for (int i = 0; i < 100; i++)
+    {
+        if (rhs.getIdea(i) != "")
+            o << "Idea " << i << ": " << rhs.getIdea(i) << std::endl;
+    }
+    return (o);
 }

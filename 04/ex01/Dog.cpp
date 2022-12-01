@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:23:24 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/11/15 14:23:25 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:36:06 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ Dog & Dog::operator=(Dog const & rhs)
 {
     std::cout << "Dog assignation operator called" << std::endl;
     this->_type = rhs._type;
+
+	if (this->_brain)
+		delete this->_brain;
+    this->_brain = new Brain(*rhs._brain);
+	
     return (*this);
 }
 
@@ -43,4 +48,9 @@ Dog::~Dog()
 void Dog::makeSound(void) const
 {
     std::cout << "Wouaf" << std::endl;
+}
+
+Brain *Dog::getBrain(void) const
+{
+    return (this->_brain);
 }

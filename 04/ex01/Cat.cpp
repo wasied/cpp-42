@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:23:23 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/11/15 14:23:24 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:35:58 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ Cat & Cat::operator=(Cat const & rhs)
 {
     std::cout << "Cat assignation operator called" << std::endl;
     this->_type = rhs._type;
+
+	if (this->_brain)
+		delete this->_brain;
+    this->_brain = new Brain(*rhs._brain);
+	
     return (*this);
 }
 
@@ -43,4 +48,9 @@ Cat::~Cat()
 void Cat::makeSound(void) const
 {
     std::cout << "Miaouw" << std::endl;
+}
+
+Brain *Cat::getBrain(void) const
+{
+    return (this->_brain);
 }
