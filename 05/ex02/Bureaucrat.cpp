@@ -21,7 +21,7 @@ Bureaucrat::~Bureaucrat()
 
 Bureaucrat &    Bureaucrat::operator=(Bureaucrat const & rhs)
 {
-    this->_name = rhs.getName();
+	std::cout << "Since name is const, can't overwrite it" << std::endl;
     this->_grade = rhs.getGrade();
     return *this;
 }

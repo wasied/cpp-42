@@ -12,6 +12,7 @@ Bureaucrat::Bureaucrat(std::string name, unsigned int grade) : _name(name), _gra
 Bureaucrat::Bureaucrat(Bureaucrat const & src)
 {
     *this = src;
+	return;
 }
 
 Bureaucrat::~Bureaucrat()
@@ -21,7 +22,7 @@ Bureaucrat::~Bureaucrat()
 
 Bureaucrat &    Bureaucrat::operator=(Bureaucrat const & rhs)
 {
-    this->_name = rhs.getName();
+	std::cout << "Since name is const, can't overwrite it" << std::endl;
     this->_grade = rhs.getGrade();
     return *this;
 }
