@@ -9,6 +9,10 @@ int main(void)
     Form        form2("Form2", 10, 1);
 
     std::cout << std::endl;
+	std::cout << form1;
+	std::cout << form2;
+    std::cout << std::endl;
+
     try
     {
         Form        invalid1("Form3", 149, 0);

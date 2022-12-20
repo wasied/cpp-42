@@ -26,7 +26,7 @@ int main(void)
 
     PresidentialPardonForm    pardon("McAfee");
     RobotomyRequestForm       robotomy("Neo");
-    ShrubberyCreationForm     shrubbery("Weird");
+    ShrubberyCreationForm     shrubbery("garden");
 
     std::cout << std::endl << green << "===== Trying to sign pardon =====" << std::endl;
     user.signForm(pardon);

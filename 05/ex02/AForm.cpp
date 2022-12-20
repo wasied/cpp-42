@@ -40,12 +40,12 @@ bool            AForm::getSigned() const
     return this->_signed;
 }
 
-const unsigned int    AForm::getGradeToSign() const
+unsigned int    AForm::getGradeToSign() const
 {
     return this->_minGradeToSign;
 }
 
-const unsigned int    AForm::getGradeToExecute() const
+unsigned int    AForm::getGradeToExecute() const
 {
     return this->_minGradeToExecute;
 }

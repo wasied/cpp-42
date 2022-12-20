@@ -40,12 +40,12 @@ bool            Form::getSigned() const
     return this->_signed;
 }
 
-const unsigned int    Form::getGradeToSign() const
+unsigned int    Form::getGradeToSign() const
 {
     return this->_minGradeToSign;
 }
 
-const unsigned int    Form::getGradeToExecute() const
+unsigned int    Form::getGradeToExecute() const
 {
     return this->_minGradeToExecute;
 }
@@ -69,6 +69,6 @@ const char* Form::GradeTooLowException::what() const throw()
 
 std::ostream &  operator<<(std::ostream & o, Form const & i)
 {
-    o << "Form '" << i.getName() << "' (" << (i.getSigned() ? "signé" : "non-signé") << ") requires a grade of " << i.getGradeToSign() << " to sign and a grade of " << i.getGradeToExecute() << " to execute." << std::endl;
+    o << "Form '" << i.getName() << "' (" << (i.getSigned() ? "signed" : "unsigned") << ") requires a grade of " << i.getGradeToSign() << " to sign and a grade of " << i.getGradeToExecute() << " to execute." << std::endl;
     return o;
 }

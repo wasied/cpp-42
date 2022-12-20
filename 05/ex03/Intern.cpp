@@ -17,12 +17,13 @@ Intern::~Intern()
 
 Intern &    Intern::operator=(Intern const & rhs)
 {
+	std::cout << "Nothing to copy for Intern '" << &rhs << "'" << std::endl;
     return *this;
 }
 
 AForm *     Intern::makeForm(std::string formName, std::string target)
 {
-    std::string formNames[] = {"robotomy request", "presidential pardon", "shrubbery creation"};
+    std::string formNames[] = {"robotomy request", "presidential pardo", "shrubbery creation"};
     AForm*      forms[] = {new RobotomyRequestForm(target), new PresidentialPardonForm(target), new ShrubberyCreationForm(target)};
     AForm*      formRet = NULL;
 
@@ -30,7 +31,7 @@ AForm *     Intern::makeForm(std::string formName, std::string target)
     {
         if (!formRet && formName == formNames[i])
         {
-            std::cout << "Intern created " << formName << std::endl;
+            std::cout << "Intern creates " << formName << std::endl;
             formRet = forms[i];
         }
         else
