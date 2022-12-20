@@ -1,13 +1,13 @@
 NAME = convert
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRCS = main.cpp Cast.cpp
 HEADERS = Cast.hpp
 OBJS = $(SRCS:.cpp=.o)
 
 $(NAME): $(OBJS) $(HEADERS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CPPFLAGS) -o $(NAME) $(OBJS)
 
 all: $(NAME)
 

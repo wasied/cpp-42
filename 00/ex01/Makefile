@@ -1,13 +1,13 @@
 NAME = phonebook
 CC = c++
-CFLAGS = -Wall -Wextra -Werror
+CPPFLAGS = -Wall -Wextra -Werror
 
 SRCS = PhoneBook.cpp Contact.cpp utils.cpp main.cpp
 HEADERS = PhoneBook.hpp Contact.hpp utils.hpp
 OBJS = $(SRCS:.cpp=.o)
 
 $(NAME): $(OBJS) $(HEADERS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CPPFLAGS) -o $(NAME) $(OBJS)
 
 all: $(NAME)
 
