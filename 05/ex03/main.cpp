@@ -9,7 +9,7 @@ int main(void)
     AForm*      someForm;
 
     std::cout << std::endl << "===== Creating a robotomy request =====" << std::endl;
-    someForm = someRandomIntern.makeForm("presidential pardon", "Bender");
+    someForm = someRandomIntern.makeForm("robotomy request", "Bender");
     
 	if (someForm)
 		std::cout << "===== Creating a robotomy request =====" << std::endl;
