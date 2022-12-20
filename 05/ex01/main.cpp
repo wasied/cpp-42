@@ -46,6 +46,10 @@ int main(void)
     {
         std::cout << "Unable to sign form because " << e.what() << std::endl;
     }
+
+	std::cout << std::endl;
+	std::cout << form1;
+	std::cout << form2;
     std::cout << std::endl;
 
     return 0;
