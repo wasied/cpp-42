@@ -5,6 +5,7 @@
 # include <iomanip>
 # include <string>
 # include <cmath>
+# include <sstream>
 
 class Cast
 {
@@ -14,6 +15,9 @@ class Cast
         ~Cast();
 
         Cast &		operator=(Cast const & rhs);
+
+		bool				isInputChar() const;
+		int					getDecimalCount() const;
 
         const std::string & getValue() const;
         char		        toChar() const;

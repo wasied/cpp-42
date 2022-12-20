@@ -15,12 +15,18 @@ Cast::~Cast()
 
 Cast & Cast::operator=(Cast const & rhs)
 {
+	std::cout << "Nothing to copy for Cast '" << &rhs << "'" << std::endl;
     return *this;
 }
 
 const std::string & Cast::getValue() const
 {
     return this->_value;
+}
+
+bool Cast::isInputChar() const
+{
+	return (this->_value.length() == 1 && !std::isdigit(this->_value[0]));
 }
 
 char Cast::toChar() const
@@ -45,15 +51,16 @@ char Cast::toChar() const
 int Cast::toInt() const
 {
     int 	n;
-	double	d;
-	double	inf;
+	float	f;
+	float	inf;
 
     try
     {
-		d = this->toDouble();
-		n = static_cast<int>(d);
-		inf = std::numeric_limits<double>::infinity();
-		if (d == inf || d == -inf || std::isnan(d))
+		f = this->toFloat();
+		n = static_cast<int>(f);
+
+		inf = std::numeric_limits<float>::infinity();
+		if (f == inf || f == -inf || std::isnan(f))
 			throw std::exception();
     }
     catch (std::exception & e)
@@ -67,11 +74,19 @@ float Cast::toFloat() const
 {
     float 	f;
 	double	d;
+	double	max;
+	double	min;
 
     try
     {
 		d = this->toDouble();
 		f = static_cast<float>(d);
+
+		max = static_cast<double>(std::numeric_limits<float>::max());
+		min = static_cast<double>(std::numeric_limits<float>::min());
+
+		if (d < min || d > max || std::isnan(d))
+			throw std::exception();
     }
     catch (std::exception & e)
     {
@@ -86,7 +101,17 @@ double Cast::toDouble() const
 
     try
     {
-        n = std::stod(this->_value);
+		std::string			val = this->_value;
+
+		if (this->isInputChar())
+		{
+			std::stringstream	tmpStream;
+	
+			tmpStream << static_cast<int>(this->_value[0]);
+			val = tmpStream.str();
+		}
+
+        n = std::stod(val);
     }
     catch (std::exception & e)
     {
@@ -95,8 +120,28 @@ double Cast::toDouble() const
     return n;
 }
 
+int	Cast::getDecimalCount() const
+{
+	double				d = this->toDouble();
+
+	std::stringstream	ss;
+	ss << d;
+	std::string			str = ss.str();
+
+	std::size_t			pos = str.find('.');
+	if (pos == std::string::npos)
+		return (0);
+	return str.substr(pos + 1).length();
+}
+
 std::ostream & operator<<(std::ostream & o, Cast const & rhs)
 {
+	int	decCount = rhs.getDecimalCount();
+	if (decCount <= 0)
+		decCount = 1;
+
+	std::cout << std::fixed << std::setprecision(decCount);
+
     o << "char: ";
     try
     {
@@ -121,7 +166,7 @@ std::ostream & operator<<(std::ostream & o, Cast const & rhs)
     o << "float: ";
     try
     {
-        o << std::fixed << std::setprecision(1) << rhs.toFloat() << "f" << std::endl;
+        o << rhs.toFloat() << "f" << std::endl;
     }
     catch (std::exception & e)
     {
@@ -131,7 +176,7 @@ std::ostream & operator<<(std::ostream & o, Cast const & rhs)
     o << "double: ";
     try
     {
-        o << std::fixed << std::setprecision(1) << rhs.toDouble() << std::endl;
+        o << rhs.toDouble() << std::endl;
     }
     catch (std::exception & e)
     {
