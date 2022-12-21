@@ -51,15 +51,14 @@ char Cast::toChar() const
 int Cast::toInt() const
 {
     int 	n;
-	float	f;
-	float	inf;
 
     try
     {
-		f = this->toFloat();
+		float f = this->toFloat();
 		n = static_cast<int>(f);
 
-		inf = std::numeric_limits<float>::infinity();
+		float inf = std::numeric_limits<float>::infinity();
+
 		if (f == inf || f == -inf || std::isnan(f))
 			throw std::exception();
     }
@@ -72,20 +71,18 @@ int Cast::toInt() const
 
 float Cast::toFloat() const
 {
-    float 	f;
-	double	d;
-	double	max;
-	double	min;
+    float   f;
 
     try
     {
-		d = this->toDouble();
+		double  d = this->toDouble();
 		f = static_cast<float>(d);
 
-		max = static_cast<double>(std::numeric_limits<float>::max());
-		min = static_cast<double>(std::numeric_limits<float>::min());
+		double  max = static_cast<double>(std::numeric_limits<float>::max());
+		double  min = -max;
+        double  inf = std::numeric_limits<double>::infinity();
 
-		if (d < min || d > max || std::isnan(d))
+		if (!(d == inf || d == -inf) && (d < min || d > max))
 			throw std::exception();
     }
     catch (std::exception & e)
@@ -97,21 +94,23 @@ float Cast::toFloat() const
 
 double Cast::toDouble() const
 {
-    double n;
+    double  n;
 
     try
     {
-		std::string			val = this->_value;
+		std::string val = this->_value;
 
 		if (this->isInputChar())
 		{
-			std::stringstream	tmpStream;
+			std::stringstream   tmpStream;
 	
 			tmpStream << static_cast<int>(this->_value[0]);
 			val = tmpStream.str();
 		}
 
-        n = std::stod(val);
+        n = atof(val.c_str());
+        if (n == 0 && val != "0")
+            throw std::exception();
     }
     catch (std::exception & e)
     {
@@ -122,15 +121,25 @@ double Cast::toDouble() const
 
 int	Cast::getDecimalCount() const
 {
-	double				d = this->toDouble();
+    double  d;
+    
+    try
+    {
+	    d = this->toDouble();
+    }
+    catch (std::exception & e)
+    {
+        return (0);
+    }
 
-	std::stringstream	ss;
+	std::stringstream   ss;
 	ss << d;
-	std::string			str = ss.str();
+	std::string str = ss.str();
 
-	std::size_t			pos = str.find('.');
+	std::size_t pos = str.find('.');
 	if (pos == std::string::npos)
 		return (0);
+    
 	return str.substr(pos + 1).length();
 }
 
