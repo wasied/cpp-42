@@ -75,7 +75,7 @@ class Array
         unsigned int    _size;
 };
 
-template <typename T = int>
+template <typename T>
 std::ostream & operator<<(std::ostream & o, Array<T> const & rhs)
 {
     for (unsigned int i = 0; i < rhs.size(); i++)
