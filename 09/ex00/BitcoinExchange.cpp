@@ -4,11 +4,26 @@ BitcoinExchange::BitcoinExchange(DataVector ourData, DataVector theirData) : _ou
 {
 }
 
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &src)
+{
+    *this = src;
+}
+
 BitcoinExchange::~BitcoinExchange()
 {
 }
 
-DataPair BitcoinExchange::GetFromDate(const std::string &date)
+BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
+{
+    if (this != &rhs)
+    {
+        _ourData = rhs._ourData;
+        _theirData = rhs._theirData;
+    }
+    return *this;
+}
+
+DataPair BitcoinExchange::getFromDate(const std::string &date)
 {
     for (size_t i = 0; i < _ourData.size(); ++i) 
     {
@@ -21,9 +36,9 @@ DataPair BitcoinExchange::GetFromDate(const std::string &date)
     return (DataPair("ERR", "ERR"));
 }
 
-DataPair BitcoinExchange::GetClosestData(const std::string &date)
+DataPair BitcoinExchange::getClosestData(const std::string &date)
 {
-    DataPair fetchedDate = GetFromDate(date);
+    DataPair fetchedDate = getFromDate(date);
     if (!(fetchedDate.first == "ERR" && fetchedDate.second == "ERR"))
     {
         return fetchedDate;
@@ -33,7 +48,7 @@ DataPair BitcoinExchange::GetClosestData(const std::string &date)
 
     for (size_t i = 0; i < _ourData.size(); ++i) 
     {
-        int difference = CalculateDateDifference(date, _ourData[i].first);
+        int difference = calculateDateDifference(date, _ourData[i].first);
         if (difference < minDifference) 
         {
             minDifference = difference;
@@ -44,7 +59,7 @@ DataPair BitcoinExchange::GetClosestData(const std::string &date)
     return fetchedDate;
 }
 
-int BitcoinExchange::CalculateDateDifference(const std::string &date1, const std::string &date2) 
+int BitcoinExchange::calculateDateDifference(const std::string &date1, const std::string &date2) 
 {
     int year1, month1, day1, year2, month2, day2;
 
@@ -57,12 +72,12 @@ int BitcoinExchange::CalculateDateDifference(const std::string &date1, const std
     return abs(days1 - days2);
 }
 
-ResultVector BitcoinExchange::ComputeFormattedData()
+ResultVector BitcoinExchange::computeFormattedData()
 {
     ResultVector formattedData;
 
     for (size_t i = 0; i < _theirData.size(); ++i) {
-        DataPair nearestData = GetClosestData(_theirData[i].first);
+        DataPair nearestData = getClosestData(_theirData[i].first);
         std::string val = _theirData[i].second;
         std::stringstream ss;
 

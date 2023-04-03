@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     DataVector theirData = parseFile(argv[1], '|');
 
     BitcoinExchange exchange(oursData, theirData);
-    ResultVector result = exchange.ComputeFormattedData();
+    ResultVector result = exchange.computeFormattedData();
 
     for (size_t i = 0; i < result.size(); ++i) 
     {

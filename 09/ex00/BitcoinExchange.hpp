@@ -19,16 +19,18 @@ class BitcoinExchange
 {
     public:
         BitcoinExchange(DataVector ourData, DataVector theirData);
+        BitcoinExchange(BitcoinExchange const &src);
         ~BitcoinExchange();
 
-        ResultVector    ComputeFormattedData();
+        BitcoinExchange &operator=(BitcoinExchange const &rhs);
+
+
+        ResultVector    computeFormattedData();
 
     private:
-        DataPair    GetFromDate(const std::string &date);
-        DataPair    GetClosestData(const std::string &date);
-
-        int         CalculateDateDifference(const std::string &date1, const std::string &date2);
-        double      GetTheirValue(const std::string &date);
+        DataPair    getFromDate(const std::string &date);
+        DataPair    getClosestData(const std::string &date);
+        int         calculateDateDifference(const std::string &date1, const std::string &date2);
 
     private:
         DataVector _ourData;
