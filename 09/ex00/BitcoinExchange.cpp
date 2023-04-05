@@ -49,13 +49,15 @@ DataPair BitcoinExchange::getClosestData(const std::string &date)
     for (size_t i = 0; i < _ourData.size(); ++i) 
     {
         int difference = calculateDateDifference(date, _ourData[i].first);
-        if (difference < minDifference) 
+        if (difference > 0 && difference < minDifference)
         {
             minDifference = difference;
             fetchedDate = _ourData[i];
         }
     }
 
+    if (fetchedDate.first == "ERR" && fetchedDate.second == "ERR")
+        return (DataPair("ERR_NO_PREV_DATE", "ERR_NO_PREV_DATE"));
     return fetchedDate;
 }
 
@@ -76,7 +78,8 @@ ResultVector BitcoinExchange::computeFormattedData()
 {
     ResultVector formattedData;
 
-    for (size_t i = 0; i < _theirData.size(); ++i) {
+    for (size_t i = 0; i < _theirData.size(); ++i) 
+    {
         DataPair nearestData = getClosestData(_theirData[i].first);
         std::string val = _theirData[i].second;
         std::stringstream ss;
@@ -89,6 +92,8 @@ ResultVector BitcoinExchange::computeFormattedData()
             ss << "Error: not a positive number.";
         else if (val == "ERR_TOO_BIG_NUMBER")
             ss << "Error: too big number.";
+        else if (val == "ERR_NO_PREV_DATE")
+            ss << "Error: no data was found for this date.";
         else
         {
             double bitcoinCount = atof(val.c_str());
