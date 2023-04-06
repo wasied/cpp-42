@@ -43,7 +43,7 @@ DataStack RPN::splitBySpace(const std::string &input)
     return tokens;
 }
 
-int RPN::GetResult() const
+int RPN::getResult() const
 {
     DataStack stack = _stack;
     DataStack result;
@@ -79,7 +79,11 @@ int RPN::GetResult() const
             else if (token == "*")
                 res << (b * a);
             else if (token == "/")
+            {
+                if (a == 0)
+                    throw std::runtime_error("Cannot divide something by zero");
                 res << (b / a);
+            }
             result.push(res.str());
         }
     }
@@ -108,7 +112,7 @@ std::ostream& operator<<(std::ostream& o, const RPN& rhs)
 
     try
     {
-        int res = rhs.GetResult();
+        int res = rhs.getResult();
         ss << res;
     }
     catch (std::exception &e)

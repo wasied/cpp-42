@@ -17,7 +17,7 @@ class RPN
 
         RPN &operator=(RPN const &rhs);
 
-        int    GetResult() const;
+        int    getResult() const;
 
     private:
         DataStack   splitBySpace(const std::string &expr);

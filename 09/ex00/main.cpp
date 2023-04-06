@@ -46,7 +46,7 @@ DataVector parseFile(const std::string &filePath, char delimiter = '|')
                 continue;
             }
 
-            if (value > std::numeric_limits<int>::max()) 
+            if (value > 1000) 
             {
                 resultVec.push_back(std::make_pair(date, "ERR_TOO_BIG_NUMBER"));
                 continue;

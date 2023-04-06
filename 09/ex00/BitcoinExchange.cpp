@@ -45,6 +45,7 @@ DataPair BitcoinExchange::getClosestData(const std::string &date)
     }
 
     int minDifference = std::numeric_limits<int>::max();
+    DataPair closestLowerDate("ERR", "ERR");
 
     for (size_t i = 0; i < _ourData.size(); ++i) 
     {
@@ -52,13 +53,13 @@ DataPair BitcoinExchange::getClosestData(const std::string &date)
         if (difference > 0 && difference < minDifference)
         {
             minDifference = difference;
-            fetchedDate = _ourData[i];
+            closestLowerDate = _ourData[i];
         }
     }
 
-    if (fetchedDate.first == "ERR" && fetchedDate.second == "ERR")
-        return (DataPair("ERR_NO_PREV_DATE", "ERR_NO_PREV_DATE"));
-    return fetchedDate;
+    if (closestLowerDate.first == "ERR" && closestLowerDate.second == "ERR")
+        return (DataPair(date, "ERR_NO_PREV_DATE"));
+    return closestLowerDate;
 }
 
 int BitcoinExchange::calculateDateDifference(const std::string &date1, const std::string &date2) 
@@ -71,7 +72,7 @@ int BitcoinExchange::calculateDateDifference(const std::string &date1, const std
     int days1 = year1 * 365 + month1 * 30 + day1;
     int days2 = year2 * 365 + month2 * 30 + day2;
 
-    return abs(days1 - days2);
+    return (days1 - days2);
 }
 
 ResultVector BitcoinExchange::computeFormattedData()
@@ -91,8 +92,8 @@ ResultVector BitcoinExchange::computeFormattedData()
         else if (val == "ERR_NEGATIVE_NUMBER")
             ss << "Error: not a positive number.";
         else if (val == "ERR_TOO_BIG_NUMBER")
-            ss << "Error: too big number.";
-        else if (val == "ERR_NO_PREV_DATE")
+            ss << "Error: too large a number.";
+        else if (nearestData.second == "ERR_NO_PREV_DATE")
             ss << "Error: no data was found for this date.";
         else
         {
