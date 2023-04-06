@@ -4,7 +4,7 @@ int main(int argc, char* argv[])
 {
     if (argc < 2) 
     {
-        std::cout << "Erreur: Veuillez fournir une séquence d'entiers positifs en argument." << std::endl;
+        std::cout << "Error: Please enter a sequence of positive integers" << std::endl;
         return 1;
     }
 
@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
         int number = std::atoi(argv[i]);
         if (number < 0) 
         {
-            std::cout << "Erreur: Les arguments doivent être des entiers positifs." << std::endl;
+            std::cout << "Error: Arguments must be positive" << std::endl;
             return 1;
         }
         numbers_deque.push_back(number);
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     std::list<int> numbers_list(numbers_deque.begin(), numbers_deque.end());
 
     PmergeMe pmerge_me;
-    int threshold = 10; // this var will adjust the algorithm used to sort the list (if >10, merge sort, else insertion sort)
+    int threshold = 10; // merge-insertion until sequences of THRESHOLD, then sort
 
     std::clock_t start_time;
     std::clock_t elapsed_time;
